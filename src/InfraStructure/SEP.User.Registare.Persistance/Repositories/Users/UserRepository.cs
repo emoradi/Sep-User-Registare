@@ -1,4 +1,5 @@
-﻿using SEP.User.Registare.Domain.Models.Users.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using SEP.User.Registare.Domain.Models.Users.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,9 +27,9 @@ namespace SEP.User.Registare.Persistance.Repositories.Zaers
             throw new NotImplementedException();
         }
 
-        public async Task<List<Domain.Models.Users.User>> GetAll(CancellationToken cancellationToken)
+        public  Task<List<Domain.Models.Users.User>> GetAll(CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            return _SEPDBContext.Users.ToListAsync(cancellationToken);
         }
 
         public async Task<List<Domain.Models.Users.User>> GetAllWithPagination(int pageSize, int pageNumber, CancellationToken cancellationToken)

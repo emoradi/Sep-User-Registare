@@ -13,5 +13,6 @@ namespace SEP.User.Registare.Service.Services.Users.Contracts
         UserDTO Update(UserDTO zaerDTO);
         void Delete(UserDTO zaerDTO);
         UserDTO Get(UserDTO zaerDTO);
+        Task<List<UserDTO>> GetAll(CancellationToken cancellationToken);
     }
 }

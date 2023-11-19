@@ -1,15 +1,21 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SEP.User.Registare.Service.DTOs;
+using SEP.User.Registare.Service.Services.Users.Contracts;
 
 namespace SEP.User.Registare.Web.Controllers
 {
     public class UserController : Controller
     {
-        // GET: UserController
-        public ActionResult Index()
+        private readonly IUserService _userService;
+        public UserController(IUserService userService)
         {
-            var model = new List<UserDTO>();
+            _userService = userService;
+        }
+        // GET: UserController
+        public ActionResult Index(CancellationToken cancellationToken)
+        {
+            var model = _userService.GetAll(cancellationToken).Result;
             return View(model);
         }
 
