@@ -1,3 +1,5 @@
+using SEP.User.Registare.Service;
+using SEP.User.Registare.Persistance;
 namespace SEP.User.Registare.Web
 {
     public class Program
@@ -7,8 +9,12 @@ namespace SEP.User.Registare.Web
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            
 
+            builder.Services.AddInfrastructureServices(builder.Configuration);
+            builder.Services.AddApplicationServices();
+            builder.Services.AddWebServices(builder.Configuration);
+           
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -28,7 +34,7 @@ namespace SEP.User.Registare.Web
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=User}/{action=Index}/{id?}");
 
             app.Run();
         }
