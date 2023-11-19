@@ -8,24 +8,24 @@ using System.Threading.Tasks;
 
 namespace SEP.User.Registare.Service.Services.Users
 {
-    public class ZaerService : IZaerService
+    public class UserService : IUserService
     {
-        public ZaerDTO Create(ZaerDTO zaerDTO)
+        public UserDTO Create(UserDTO zaerDTO)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(ZaerDTO zaerDTO)
+        public void Delete(UserDTO zaerDTO)
         {
             throw new NotImplementedException();
         }
 
-        public ZaerDTO Get(ZaerDTO zaerDTO)
+        public UserDTO Get(UserDTO zaerDTO)
         {
             throw new NotImplementedException();
         }
 
-        public ZaerDTO Update(ZaerDTO zaerDTO)
+        public UserDTO Update(UserDTO zaerDTO)
         {
             throw new NotImplementedException();
         }

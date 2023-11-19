@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace SEP.User.Registare.Service.Services.Users.Contracts
 {
-    public interface IZaerService
+    public interface IUserService
     {
-        ZaerDTO Create(ZaerDTO zaerDTO);
-        ZaerDTO Update(ZaerDTO zaerDTO);
-        void Delete(ZaerDTO zaerDTO);
-        ZaerDTO Get(ZaerDTO zaerDTO);
+        UserDTO Create(UserDTO zaerDTO);
+        UserDTO Update(UserDTO zaerDTO);
+        void Delete(UserDTO zaerDTO);
+        UserDTO Get(UserDTO zaerDTO);
     }
 }
