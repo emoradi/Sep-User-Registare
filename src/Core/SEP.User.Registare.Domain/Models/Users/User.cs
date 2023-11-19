@@ -12,10 +12,10 @@ namespace SEP.User.Registare.Domain.Models.Users
     {
         #region prop
         public FirstName FirstName { get; set; }
-        public LastName LastName { get; private set; }
-        public DateTime DateOfBirth { get; private set; }
-        public PhoneNumber PhoneNumber { get; private set; }
-        public EmailAddress Email { get; private set; }
+        public LastName LastName { get; set; }
+        public DateTime DateOfBirth { get;  set; }
+        public PhoneNumber PhoneNumber { get;  set; }
+        public EmailAddress EmailAddress { get;  set; }
         #endregion
         #region ctor
         private User()
@@ -26,7 +26,7 @@ namespace SEP.User.Registare.Domain.Models.Users
         {
             this.FirstName = new FirstName(firstName);
             this.LastName = new LastName(lastName);
-            this.Email = new EmailAddress(email);
+            this.EmailAddress = new EmailAddress(email);
             this.PhoneNumber = new PhoneNumber(phoneNumber, countryCode);
             this.DateOfBirth = dateOfBirth;
         }
@@ -51,7 +51,7 @@ namespace SEP.User.Registare.Domain.Models.Users
             valudateForCreate(dateOfBirth);
             this.FirstName = new FirstName(firstName);
             this.LastName = new LastName(lastName);
-            this.Email = new EmailAddress(email);
+            this.EmailAddress = new EmailAddress(email);
             this.PhoneNumber = new PhoneNumber(phoneNumber, countryCode);
             this.DateOfBirth = dateOfBirth;
             return this;

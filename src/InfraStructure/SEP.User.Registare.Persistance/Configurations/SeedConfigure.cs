@@ -4,7 +4,7 @@ using SEP.User.Registare.Domain.Models.Users.ValueObjects;
 
 namespace SEP.User.Registare.Persistance.Configurations
 {
-    public class UserConfigure : IEntityTypeConfiguration<Domain.Models.Users.User>
+    public class SeedConfigure : IEntityTypeConfiguration<Domain.Models.Users.User>
     {
         public void Configure(EntityTypeBuilder<Domain.Models.Users.User> builder)
         {
