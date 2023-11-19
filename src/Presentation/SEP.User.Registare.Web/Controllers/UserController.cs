@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SEP.User.Registare.Service.DTOs;
 using SEP.User.Registare.Service.Services.Users.Contracts;
+using System.Threading;
 
 namespace SEP.User.Registare.Web.Controllers
 {
@@ -28,22 +30,24 @@ namespace SEP.User.Registare.Web.Controllers
         // GET: UserController/Create
         public ActionResult Create()
         {
-            return View();
+            var model = new UserDTO();
+            return View(model);
         }
 
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
-            try
+
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(model);
             }
-            catch
-            {
-                return View();
-            }
+
+            _userService.Create(model, cancellationToken);
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: UserController/Edit/5

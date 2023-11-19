@@ -10,6 +10,7 @@ using SEP.User.Registare.Domain.Models.Users.Contracts;
 using SEP.User.Registare.Persistance.Repositories.Zaers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SEP.User.Registare.Service.Services;
 
 namespace SEP.User.Registare.Persistance
 {
@@ -21,6 +22,7 @@ namespace SEP.User.Registare.Persistance
                 options.UseSqlServer(configuration.GetConnectionString("SEPConnection"),
                     builder => builder.MigrationsAssembly(typeof(SEPDBContext).Assembly.FullName)));
             services.AddScoped(typeof(IUserRepository), typeof(UserRepository));
+            services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<SEPDBContext>());
             return services;
         }
     }

@@ -18,7 +18,7 @@ namespace SEP.User.Registare.Domain.Models.Users
         public EmailAddress EmailAddress { get;  set; }
         #endregion
         #region ctor
-        private User()
+        public User()
         {
 
         }

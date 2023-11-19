@@ -1,6 +1,7 @@
 ﻿using SEP.User.Registare.Service.Services.Users.Contracts;
 using SEP.User.Registare.Service.Services.Users;
 using Microsoft.Extensions.DependencyInjection;
+using SEP.User.Registare.Service.Services;
 
 namespace SEP.User.Registare.Service
 {
@@ -8,7 +9,8 @@ namespace SEP.User.Registare.Service
     {
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped(typeof(IUserService), typeof(UserService));   
+            services.AddScoped(typeof(IUserService), typeof(UserService));
+            
             return services;
         }
     }

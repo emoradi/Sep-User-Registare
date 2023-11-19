@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Library\SEP.User.Registare.Resource\SEP.User.Registare.Resource.csproj" />
     <ProjectReference Include="..\SEP.User.Registare.Domain\SEP.User.Registare.Domain.csproj" />
   </ItemGroup>
 

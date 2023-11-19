@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SEP.User.Registare.Domain.Models.Users.Contracts;
+using SEP.User.Registare.Domain.Models.Users.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +17,10 @@ namespace SEP.User.Registare.Persistance.Repositories.Zaers
             this._SEPDBContext = sepDBContext;
         }
 
-        public async Task<Domain.Models.Users.User> Add(Domain.Models.Users.User user, CancellationToken cancellationToken)
+        public  Task<Domain.Models.Users.User> Add(Domain.Models.Users.User user, CancellationToken cancellationToken)
         {
-            await _SEPDBContext.Users.AddAsync(user, cancellationToken);
-            return user;
+             _SEPDBContext.Users.AddAsync(user, cancellationToken);
+            return Task.FromResult(user);
         }
 
         public async Task<Domain.Models.Users.User> DeleteByEmail(Domain.Models.Users.User user, CancellationToken cancellationToken)
@@ -37,9 +38,20 @@ namespace SEP.User.Registare.Persistance.Repositories.Zaers
             throw new NotImplementedException();
         }
 
-        public async Task<Domain.Models.Users.User> GetByEmail(Domain.Models.Users.User user, CancellationToken cancellationToken)
+        public  Task<Domain.Models.Users.User?> GetByEmail(string email, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            try
+            {
+                EmailAddress emailAddressValue = new EmailAddress(email);
+                return _SEPDBContext.Users.Where(x => x.EmailAddress == emailAddressValue).SingleOrDefaultAsync();
+
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+           
         }
 
         public async Task<Domain.Models.Users.User> Update(Domain.Models.Users.User user, CancellationToken cancellationToken)

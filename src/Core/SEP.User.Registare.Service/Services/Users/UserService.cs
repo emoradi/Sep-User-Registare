@@ -1,4 +1,7 @@
-﻿using SEP.User.Registare.Domain.Models.Users.Contracts;
+﻿using SEP.User.Registare.Domain.Exceptions;
+using SEP.User.Registare.Domain.Models.Users;
+using SEP.User.Registare.Domain.Models.Users.Contracts;
+using SEP.User.Registare.Resource;
 using SEP.User.Registare.Service.DTOs;
 using SEP.User.Registare.Service.Services.Users.Contracts;
 using System;
@@ -11,22 +14,32 @@ namespace SEP.User.Registare.Service.Services.Users
 {
     public class UserService : IUserService
     {
+
+        private readonly IApplicationDbContext _context;
         private readonly IUserRepository _userRepository;
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IApplicationDbContext context)
         {
             _userRepository = userRepository;
+            _context = context;
         }
-        public UserDTO Create(UserDTO zaerDTO)
+        public  Task<UserDTO> Create(UserDTO userDTO, CancellationToken cancellationToken)
+        {
+            var user = new SEP.User.Registare.Domain.Models.Users.User();
+            var exitUser=  _userRepository.GetByEmail(userDTO.Email, cancellationToken);
+            if (exitUser is null)
+                throw new  SEPException(Errors.EmailAddressIsDuplicate);
+           var newUser= user.Create(userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.PhoneNumber, userDTO.CountryCode, userDTO.DateOfBirth);
+              _userRepository.Add(newUser, cancellationToken);
+            _context.SaveChanges();
+            return Task.FromResult(userDTO);
+        }
+
+        public void Delete(UserDTO userDTO)
         {
             throw new NotImplementedException();
         }
 
-        public void Delete(UserDTO zaerDTO)
-        {
-            throw new NotImplementedException();
-        }
-
-        public UserDTO Get(UserDTO zaerDTO)
+        public UserDTO Get(UserDTO userDTO)
         {
             throw new NotImplementedException();
         }
@@ -42,7 +55,7 @@ namespace SEP.User.Registare.Service.Services.Users
             return result;
         }
 
-        public UserDTO Update(UserDTO zaerDTO)
+        public UserDTO Update(UserDTO userDTO)
         {
             throw new NotImplementedException();
         }

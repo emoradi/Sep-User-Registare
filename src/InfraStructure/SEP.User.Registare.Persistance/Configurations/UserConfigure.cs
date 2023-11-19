@@ -16,8 +16,8 @@ namespace SEP.User.Registare.Persistance.Configurations
             builder.Property(e => e.Id).HasColumnName("ID");
             builder.Property(e => e.FirstName).IsRequired(true).HasMaxLength(maxLength: FirstName.MaxLength).HasConversion(p => p.value,p => new FirstName(p));
             builder.Property(e => e.LastName).IsRequired(true).HasMaxLength(maxLength: LastName.MaxLength).HasConversion(p => p.value,p => new LastName(p));
-            builder.Property(e => e.EmailAddress).IsRequired(true).HasColumnType("char").HasMaxLength(maxLength: EmailAddress.MaxLength).HasConversion(p => p.value,p => new EmailAddress(p));
-            builder.Property(e => e.PhoneNumber).IsRequired(true).HasColumnType("char").HasMaxLength(maxLength: PhoneNumber.MaxLength).HasConversion(p => p.value,p => new PhoneNumber(p));
+            builder.Property(e => e.EmailAddress).IsRequired(true).HasColumnType("varchar").HasMaxLength(maxLength: EmailAddress.MaxLength).HasConversion(p => p.value,p => new EmailAddress(p));
+            builder.Property(e => e.PhoneNumber).IsRequired(true).HasColumnType("varchar").HasMaxLength(maxLength: PhoneNumber.MaxLength).HasConversion(p => p.value,p => new PhoneNumber(p));
             builder.Property(e => e.DateOfBirth).HasColumnType("Datetime2").IsRequired(true);
             
           

@@ -9,7 +9,7 @@ namespace SEP.User.Registare.Service.Services.Users.Contracts
 {
     public interface IUserService
     {
-        UserDTO Create(UserDTO zaerDTO);
+        Task<UserDTO> Create(UserDTO zaerDTO,CancellationToken cancellationToken);
         UserDTO Update(UserDTO zaerDTO);
         void Delete(UserDTO zaerDTO);
         UserDTO Get(UserDTO zaerDTO);

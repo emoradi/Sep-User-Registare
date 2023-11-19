@@ -10,7 +10,7 @@ namespace SEP.User.Registare.Domain.Models.Users.Contracts
     {
         Task<User> Add(User user, CancellationToken cancellationToken);
         Task<User> Update(User user, CancellationToken cancellationToken);
-        Task<User> GetByEmail(User user, CancellationToken cancellationToken);
+        Task<User?> GetByEmail(string email, CancellationToken cancellationToken);
         Task<User> DeleteByEmail(User user, CancellationToken cancellationToken);
         Task<List<User>> GetAll(CancellationToken cancellationToken);
         Task<List<User>> GetAllWithPagination(int pageSize, int pageNumber,CancellationToken cancellationToken);

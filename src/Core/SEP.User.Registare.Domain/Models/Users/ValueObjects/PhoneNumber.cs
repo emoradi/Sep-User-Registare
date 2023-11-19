@@ -24,7 +24,7 @@ namespace SEP.User.Registare.Domain.Models.Users.ValueObjects
         {
 
             Validate(phoneNumber, countryCode);
-            value = '+' + countryCode + '-' + phoneNumber;
+            value = phoneNumber;
         }
         public PhoneNumber(string orginalPhoneNumber)
         {
