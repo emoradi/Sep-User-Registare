@@ -9,10 +9,10 @@ namespace SEP.User.Registare.Service.Services.Users.Contracts
 {
     public interface IUserService
     {
-        Task<UserDTO> Create(UserDTO zaerDTO,CancellationToken cancellationToken);
+        Task<UserDTO> Create(UserDTO userDTO, CancellationToken cancellationToken);
         Task<UserDTO> Update(UserDTO userDTO, CancellationToken cancellationToken);
-        void Delete(UserDTO zaerDTO);
-        UserDTO Get(UserDTO zaerDTO);
+        Task Delete(string email, CancellationToken cancellationToken);
+        UserDTO Get(UserDTO userDTO);
         Task<List<UserDTO>> GetAll(CancellationToken cancellationToken);
         Task<UserDTO> GetByEmail(string email, CancellationToken cancellationToken);
     }

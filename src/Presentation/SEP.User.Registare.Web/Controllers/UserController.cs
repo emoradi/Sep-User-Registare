@@ -73,24 +73,20 @@ namespace SEP.User.Registare.Web.Controllers
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string email, CancellationToken cancellationToken)
         {
-            return View();
+            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            return View(user);
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _userService.Delete(model.Email, cancellationToken);
+            return RedirectToAction(nameof(Index));
+
         }
     }
 }

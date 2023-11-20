@@ -72,9 +72,9 @@ namespace SEP.User.Registare.Resource {
         /// <summary>
         ///   Looks up a localized string similar to کاربری با این ایمیل وجود ندارد.
         /// </summary>
-        public static string UserInNotExict {
+        public static string UserNotFound {
             get {
-                return ResourceManager.GetString("UserInNotExict", resourceCulture);
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
     }

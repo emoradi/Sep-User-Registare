@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SEP.User.Registare.Service.Services.Users
@@ -34,9 +35,14 @@ namespace SEP.User.Registare.Service.Services.Users
             return Task.FromResult(userDTO);
         }
 
-        public void Delete(UserDTO userDTO)
+        public Task Delete(string email,CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var exitUser = _userRepository.GetByEmail(email, cancellationToken).Result;
+            if (exitUser is null)
+                throw new SEPException(Errors.UserNotFound);
+            _userRepository.Delete(exitUser, cancellationToken);
+            _context.SaveChanges();
+            return Task.CompletedTask;
         }
 
         public UserDTO Get(UserDTO userDTO)
@@ -59,7 +65,7 @@ namespace SEP.User.Registare.Service.Services.Users
         {
             var exitUser = _userRepository.GetByEmail(userDTO.Email, cancellationToken).Result;
             if (exitUser is null)
-                throw new SEPException(Errors.UserInNotExict);
+                throw new SEPException(Errors.UserNotFound);
             exitUser.Update(userDTO.FirstName, userDTO.LastName, userDTO.PhoneNumber, userDTO.CountryCode, userDTO.DateOfBirth);
             _userRepository.Update(exitUser, cancellationToken);
             _context.SaveChanges();
@@ -69,7 +75,7 @@ namespace SEP.User.Registare.Service.Services.Users
         {
             var exitUser = _userRepository.GetByEmail(email, cancellationToken).Result;
             if (exitUser is null)
-                throw new SEPException(Errors.UserInNotExict);
+                throw new SEPException(Errors.UserNotFound);
             return Task.FromResult(new UserDTO() { FirstName = exitUser.FirstName.value, LastName = exitUser.LastName.value, PhoneNumber = exitUser.PhoneNumber.value, DateOfBirth = exitUser.DateOfBirth, Email = exitUser.EmailAddress.value, CountryCode = exitUser.PhoneNumber.value.Substring(0, 3) });
         }
     }

@@ -23,9 +23,11 @@ namespace SEP.User.Registare.Persistance.Repositories.Zaers
             return Task.FromResult(user);
         }
 
-        public async Task<Domain.Models.Users.User> DeleteByEmail(Domain.Models.Users.User user, CancellationToken cancellationToken)
+        public Task Delete(Domain.Models.Users.User exitUser, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            cancellationToken.ThrowIfCancellationRequested();
+            _SEPDBContext.Users.Remove(exitUser);
+            return Task.CompletedTask;
         }
 
         public Task<List<Domain.Models.Users.User>> GetAll(CancellationToken cancellationToken)
