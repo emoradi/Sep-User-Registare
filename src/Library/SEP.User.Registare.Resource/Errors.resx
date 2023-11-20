@@ -120,4 +120,7 @@
   <data name="EmailAddressIsDuplicate" xml:space="preserve">
     <value>ایمیل وارد شده معتبر نبوده و تکراری است.</value>
   </data>
+  <data name="UserInNotExict" xml:space="preserve">
+    <value>کاربری با این ایمیل وجود ندارد</value>
+  </data>
 </root>

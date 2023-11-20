@@ -46,15 +46,13 @@ namespace SEP.User.Registare.Domain.Models.Users
             var newUser = new User(firstName, lastName, email, phoneNumber, countryCode, dateOfBirth);
             return newUser;
         }
-        public User Update(string firstName, string lastName, string email, string phoneNumber, string countryCode, DateTime dateOfBirth)
+        public void Update( string firstName, string lastName, string phoneNumber, string countryCode, DateTime dateOfBirth)
         {
             valudateForCreate(dateOfBirth);
             this.FirstName = new FirstName(firstName);
             this.LastName = new LastName(lastName);
-            this.EmailAddress = new EmailAddress(email);
             this.PhoneNumber = new PhoneNumber(phoneNumber, countryCode);
             this.DateOfBirth = dateOfBirth;
-            return this;
         }
 
 

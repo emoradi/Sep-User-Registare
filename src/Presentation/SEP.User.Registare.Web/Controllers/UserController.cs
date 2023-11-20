@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using SEP.User.Registare.Service.DTOs;
 using SEP.User.Registare.Service.Services.Users.Contracts;
 using System.Threading;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace SEP.User.Registare.Web.Controllers
 {
@@ -51,24 +52,24 @@ namespace SEP.User.Registare.Web.Controllers
         }
 
         // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(string email, CancellationToken cancellationToken)
         {
-            return View();
+            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            return View(user);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                return RedirectToAction(nameof(Index));
+                return View(model);
             }
-            catch
-            {
-                return View();
-            }
+
+            _userService.Update(model, cancellationToken);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: UserController/Delete/5

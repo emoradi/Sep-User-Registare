@@ -68,5 +68,14 @@ namespace SEP.User.Registare.Resource {
                 return ResourceManager.GetString("EmailAddressIsDuplicate", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to کاربری با این ایمیل وجود ندارد.
+        /// </summary>
+        public static string UserInNotExict {
+            get {
+                return ResourceManager.GetString("UserInNotExict", resourceCulture);
+            }
+        }
     }
 }
