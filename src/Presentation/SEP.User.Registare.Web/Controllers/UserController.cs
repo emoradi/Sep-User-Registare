@@ -23,9 +23,10 @@ namespace SEP.User.Registare.Web.Controllers
         }
 
         // GET: UserController/Details/5
-        public ActionResult Details(int id)
+        public ActionResult Details(string email, CancellationToken cancellationToken)
         {
-            return View();
+            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            return View(user);
         }
 
         // GET: UserController/Create
