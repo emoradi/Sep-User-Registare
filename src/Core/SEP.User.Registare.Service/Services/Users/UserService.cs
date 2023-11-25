@@ -23,29 +23,28 @@ namespace SEP.User.Registare.Service.Services.Users
             _userRepository = userRepository;
             _context = context;
         }
-        public Task<UserDTO> Create(UserDTO userDTO, CancellationToken cancellationToken)
+        public async Task<UserDTO> Create(UserDTO userDTO, CancellationToken cancellationToken)
         {
             var user = new SEP.User.Registare.Domain.Models.Users.User();
-            var exitUser = _userRepository.GetByEmail(userDTO.Email, cancellationToken).Result;
+            var exitUser =await _userRepository.GetByEmail(userDTO.Email, cancellationToken);
             if (exitUser is not null)
                 throw new SEPException(Errors.EmailAddressIsDuplicate);
             var newUser = user.Create(userDTO.FirstName, userDTO.LastName, userDTO.Email, userDTO.PhoneNumber, userDTO.CountryCode, userDTO.DateOfBirth);
-            _userRepository.Add(newUser, cancellationToken);
+           await _userRepository.Add(newUser, cancellationToken);
             _context.SaveChanges();
-            return Task.FromResult(userDTO);
+            return userDTO;
         }
 
-        public Task Delete(string email,CancellationToken cancellationToken)
+        public async Task Delete(string email,CancellationToken cancellationToken)
         {
             var exitUser = _userRepository.GetByEmail(email, cancellationToken).Result;
             if (exitUser is null)
                 throw new SEPException(Errors.UserNotFound);
-            _userRepository.Delete(exitUser, cancellationToken);
+            await _userRepository.Delete(exitUser, cancellationToken);
             _context.SaveChanges();
-            return Task.CompletedTask;
         }
 
-        public UserDTO Get(UserDTO userDTO)
+        public Task<UserDTO> Get(UserDTO userDTO)
         {
             throw new NotImplementedException();
         }
@@ -61,22 +60,22 @@ namespace SEP.User.Registare.Service.Services.Users
             return result;
         }
 
-        public Task<UserDTO> Update(UserDTO userDTO, CancellationToken cancellationToken)
+        public async Task<UserDTO> Update(UserDTO userDTO, CancellationToken cancellationToken)
         {
-            var exitUser = _userRepository.GetByEmail(userDTO.Email, cancellationToken).Result;
+            var exitUser = await _userRepository.GetByEmail(userDTO.Email, cancellationToken);
             if (exitUser is null)
                 throw new SEPException(Errors.UserNotFound);
             exitUser.Update(userDTO.FirstName, userDTO.LastName, userDTO.PhoneNumber, userDTO.CountryCode, userDTO.DateOfBirth);
-            _userRepository.Update(exitUser, cancellationToken);
+            await _userRepository.Update(exitUser, cancellationToken);
             _context.SaveChanges();
-            return Task.FromResult(userDTO);
+            return userDTO;
         }
-        public Task<UserDTO> GetByEmail(string email, CancellationToken cancellationToken)
+        public async Task<UserDTO> GetByEmail(string email, CancellationToken cancellationToken)
         {
-            var exitUser = _userRepository.GetByEmail(email, cancellationToken).Result;
+            var exitUser = await _userRepository.GetByEmail(email, cancellationToken);
             if (exitUser is null)
                 throw new SEPException(Errors.UserNotFound);
-            return Task.FromResult(new UserDTO() { FirstName = exitUser.FirstName.value, LastName = exitUser.LastName.value, PhoneNumber = exitUser.PhoneNumber.value, DateOfBirth = exitUser.DateOfBirth, Email = exitUser.EmailAddress.value, CountryCode = exitUser.PhoneNumber.value.Substring(0, 3) });
+            return new UserDTO() { FirstName = exitUser.FirstName.value, LastName = exitUser.LastName.value, PhoneNumber = exitUser.PhoneNumber.value, DateOfBirth = exitUser.DateOfBirth, Email = exitUser.EmailAddress.value, CountryCode = exitUser.PhoneNumber.value.Substring(0, 3) };
         }
     }
 }

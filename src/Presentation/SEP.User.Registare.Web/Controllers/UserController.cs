@@ -16,16 +16,16 @@ namespace SEP.User.Registare.Web.Controllers
             _userService = userService;
         }
         // GET: UserController
-        public ActionResult Index(CancellationToken cancellationToken)
+        public async Task<ActionResult> Index(CancellationToken cancellationToken)
         {
-            var model = _userService.GetAll(cancellationToken).Result;
+            var model = await _userService.GetAll(cancellationToken);
             return View(model);
         }
 
         // GET: UserController/Details/5
-        public ActionResult Details(string email, CancellationToken cancellationToken)
+        public async Task<ActionResult> Details(string email, CancellationToken cancellationToken)
         {
-            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            var user = await _userService.GetByEmail(email, cancellationToken);
             return View(user);
         }
 
@@ -39,7 +39,7 @@ namespace SEP.User.Registare.Web.Controllers
         // POST: UserController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
+        public async Task<ActionResult> Create(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
 
             if (!ModelState.IsValid)
@@ -47,45 +47,45 @@ namespace SEP.User.Registare.Web.Controllers
                 return View(model);
             }
 
-            _userService.Create(model, cancellationToken);
+            await _userService.Create(model, cancellationToken);
             return RedirectToAction(nameof(Index));
 
         }
 
         // GET: UserController/Edit/5
-        public ActionResult Edit(string email, CancellationToken cancellationToken)
+        public async Task<ActionResult> Edit(string email, CancellationToken cancellationToken)
         {
-            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            var user = await _userService.GetByEmail(email, cancellationToken);
             return View(user);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
+        public async Task<ActionResult> Edit(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
                 return View(model);
             }
 
-            _userService.Update(model, cancellationToken);
+            await _userService.Update(model, cancellationToken);
             return RedirectToAction(nameof(Index));
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(string email, CancellationToken cancellationToken)
+        public async Task<ActionResult> Delete(string email, CancellationToken cancellationToken)
         {
-            var user = _userService.GetByEmail(email, cancellationToken).Result;
+            var user = await _userService.GetByEmail(email, cancellationToken);
             return View(user);
         }
 
         // POST: UserController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
+        public async Task<ActionResult> Delete(UserDTO model, IFormCollection collection, CancellationToken cancellationToken)
         {
-            _userService.Delete(model.Email, cancellationToken);
+            await _userService.Delete(model.Email, cancellationToken);
             return RedirectToAction(nameof(Index));
 
         }

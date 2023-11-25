@@ -12,7 +12,7 @@ namespace SEP.User.Registare.Service.Services.Users.Contracts
         Task<UserDTO> Create(UserDTO userDTO, CancellationToken cancellationToken);
         Task<UserDTO> Update(UserDTO userDTO, CancellationToken cancellationToken);
         Task Delete(string email, CancellationToken cancellationToken);
-        UserDTO Get(UserDTO userDTO);
+        Task<UserDTO> Get(UserDTO userDTO);
         Task<List<UserDTO>> GetAll(CancellationToken cancellationToken);
         Task<UserDTO> GetByEmail(string email, CancellationToken cancellationToken);
     }
